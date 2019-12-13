@@ -8,15 +8,14 @@ before_install:
 script:
   - docker run abassadey/react-test npm test -- --coverage
 
-after_success: ui
+after_success:
   - docker build -t abassadey/multi-client ./client
   - docker build -t abassadey/multi-nginx ./nginx
   - docker build -t abassadey/multi-server ./server
   - docker build -t abassadey/multi-worker ./worker
   # Log in to docker cli
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push abassadey/multi-client 
-  - docker push abassadey/multi-nginx 
-  - docker push abassadey/multi-server 
-  - docker push abassadey/multi-worker 
-
+  - docker push abassadey/multi-client
+  - docker push abassadey/multi-nginx
+  - docker push abassadey/multi-server
+  - docker push abassadey/multi-worker
